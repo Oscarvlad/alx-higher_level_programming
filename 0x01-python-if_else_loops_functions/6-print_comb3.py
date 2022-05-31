@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-for i in range(10):
-    for x in range(10):
-        if i < x:
-            print(f"{i}{x}, " if i != 8 else f"{i}{x}\n", end="")
+for i in range(0, 10):
+    for j in range(0, 10):
+        if i >= j:
+            continue
+        elif i == 8 and j == 9:
+            print("{}{}".format(i, j))
+        else:
+            print("{}{}, ".format(i, j), end='')
