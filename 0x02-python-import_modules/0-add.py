@@ -1,7 +1,12 @@
 #!/usr/bin/python3
-from add_0 import add as addition
-a = 1
-b = 2
+from add_0 import add
+
+
+def main():
+    a = 1
+    b = 2
+    c = add(a, b)
+    print("{} + {} = {}".format(a, b, c))
 
 if __name__ == "__main__":
-    print(f"{a} + {b} = {addition(a, b)}")
+    main()
