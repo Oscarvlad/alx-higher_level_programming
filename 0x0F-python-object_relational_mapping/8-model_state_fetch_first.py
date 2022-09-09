@@ -1,22 +1,23 @@
 #!/usr/bin/python3
-""" only first state """
+"""script that prints the first State object from the database hbtn_0e_6_usa"""
 
-import sys
-from model_state import Base, State
-from sqlalchemy import create_engine
+
+from sqlalchemy import select, Integer, String, create_engine
 from sqlalchemy.orm import sessionmaker
+from model_state import Base, State
+from sys import argv
+
 
 if __name__ == "__main__":
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'.
-                           format(sys.argv[1], sys.argv[2], sys.argv[3]),
-                           pool_pre_ping=True)
+
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(argv[1],
+                           argv[2], argv[3]), pool_pre_ping=True)
+
     Session = sessionmaker(bind=engine)
     session = Session()
 
     query = session.query(State)
-    records = query.first()
-
-    if records:
-        print("{:d}: {:s}".format(records.id, records.name))
+    if query.first():
+        print(f"{query.first().id}: {query.first().name}")
     else:
         print("Nothing")
