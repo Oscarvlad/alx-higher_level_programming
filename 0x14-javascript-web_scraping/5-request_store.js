@@ -1,19 +1,25 @@
 #!/usr/bin/node
-const axios = require('axios');
-const fs = require('fs');
-const { argv } = require('process');
-const link = argv[2];
-const path = argv[3];
+/*
+Write a script that gets the contents of a webpage and stores it in a file.
 
-axios.get(link)
-  .then(res => {
-    fs.appendFile(path, res.data, 'utf8', (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  }).catch(error => {
-    if (error.response) {
-      console.log(error.response.status);
+The first argument is the URL to request
+The second argument the file path to store the body response
+The file must be UTF-8 encoded
+You must use the module request
+*/
+const fs = require('fs');
+const request = require('request');
+
+const url = process.argv[2];
+const filePath = process.argv[3];
+
+request(url, (error, response, body) => {
+  if (error) {
+    console.log(error);
+  }
+  fs.writeFile(filePath, body, 'utf8', (err) => {
+    if (err) {
+      return console.log(err);
     }
   });
+});
